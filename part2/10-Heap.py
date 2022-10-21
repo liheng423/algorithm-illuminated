@@ -40,7 +40,7 @@ class Heap:
         parent = self.get_parent(i)
 
         if array[parent] < array[i] and parent >= 0:
-            self.exchsange(self.heap, parent, i)
+            self.exchange(self.heap, parent, i)
             self.heapify_upwards(parent)
 
     def extract_max(self):
