@@ -2,7 +2,7 @@ import utils.Graph as Graph
 import random
 import utils.Heap as Heap
 import math
-from test.Tester import timer
+from moduletest.Tester import timer
 
 
 class GroupVertice:
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     @timer
     def main_loop():
         prim = Prim(split_graph)
-        MST = prim.run()
+        return prim.run()
 
     main_loop()
 
