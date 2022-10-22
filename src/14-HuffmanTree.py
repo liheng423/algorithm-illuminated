@@ -10,7 +10,7 @@ class Node:
         self.parent = parent
         self.children = children
 
-    def to_string(self):
+    def __str__(self):
         return "value: {0}, parent: {1}, children: {2}".format(self.value, self.parent, self.children)
 
 
@@ -36,8 +36,8 @@ class HuffmanTree(Tree):
         super().__init__(value_frequency.keys())
         # a variant array storing values and frequencies
         self.value_frequency = value_frequency
-        self.freq_heap = ObjectHeap([self.ValueFreq(
-            node, -value) for node, value in zip(self.tree, self.value_frequency.values())])
+        self.freq_heap = Heap.MinHeap([self.ValueFreq(node, value) for node, value in zip(self.tree, self.value_frequency.values())],
+                                      lambda x: x.freq)
         self.num_subtree = len(self.tree)
 
     class ValueFreq:
@@ -63,40 +63,12 @@ class HuffmanTree(Tree):
 
     @staticmethod
     def find_min_heap(freq_heap):
-        min1 = freq_heap.extract_max()
-        min2 = freq_heap.extract_max()
+        min1 = freq_heap.extract_root()
+        min2 = freq_heap.extract_root()
         return min1, min2
 
-    def to_string(self):
-        return [node.to_string() for node in self.tree]
-
-
-class ObjectHeap(Heap.MinHeap):
-
-    def heapify_downwards(self, i):
-        array = self.heap
-        array_size = self.array_size
-        left = self.get_left_child(i)
-        right = self.get_right_child(i)
-        if left <= array_size and array[left].freq > array[i].freq:
-            largest = left
-        else:
-            largest = i
-
-        if right <= array_size and array[right].freq > array[largest].freq:
-            largest = right
-
-        if largest != i:
-            self.exchange(self.heap, i, largest)
-            self.heapify_downwards(largest)
-
-    def heapify_upwards(self, i):
-        array = self.heap
-        parent = self.get_parent(i)
-
-        if array[parent].freq < array[i].freq and parent >= 0:
-            self.exchange(self.heap, parent, i)
-            self.heapify_upwards(parent)
+    def __str__(self):
+        return [node.__str__() for node in self.tree]
 
 
 if __name__ == "__main__":

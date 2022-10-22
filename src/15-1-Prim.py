@@ -2,7 +2,7 @@ import utils.Graph as Graph
 import random
 import utils.Heap as Heap
 import math
-import time
+from test.Tester import timer
 
 
 class GroupVertice:
@@ -52,7 +52,7 @@ class Prim:
         while self._heap.heap:
 
             # the default mode is extract max
-            opt_vertice = self._heap.extract_min()
+            opt_vertice = self._heap.extract_root()
 
             # add w_opt into the explored node set
             self._explored_vertex.append(opt_vertice)
@@ -132,18 +132,19 @@ if __name__ == "__main__":
 
     split_graph = Graph.Graph(weight_edges, group_vertex)
 
-    print("####################RUNNING THE ALGORITHM####################")
-    tic = time.time()
-    prim = Prim(split_graph)
-    MST = prim.run()
-    toc = time.time()
+    # main loop of algorithm
+    @timer
+    def main_loop():
+        prim = Prim(split_graph)
+        MST = prim.run()
+
+    main_loop()
 
     # prettify the result and show
 
-    vertex_dict = dict([(group_vertice, vertice)
-                        for vertice, group_vertice in enumerate(group_vertex)])
+    # vertex_dict = dict([(group_vertice, vertice)
+    #                     for vertice, group_vertice in enumerate(group_vertex)])
 
     # print([(vertex_dict[list(edge.vertex_set)[0]], vertex_dict[list(edge.vertex_set)[1]])
     #       for edge in MST])
     # print(edges)
-    print("########### %5.3fs elapsed ###########" % (toc - tic))

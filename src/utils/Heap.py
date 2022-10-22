@@ -14,17 +14,24 @@ class MinHeap:
         for i in range(floor(self.array_size / 2), -1, -1):
             self.traverse_downwards(i)
 
+    def comparator(self, x, y):
+        """
+            This comparator are used to compare two candidates and initialized as minHeap by default.
+            If the MaxHeap is needed, then reverse the comparator in this function.
+        """
+        return self.get_value(x) < self.get_value(y)
+
     def traverse_downwards(self, i):
         array = self.heap
         array_size = len(self.heap)
         left = self.get_left_child(i)
         right = self.get_right_child(i)
-        if left < array_size and self.get_value(array[left]) < self.get_value(array[i]):
+        if left < array_size and self.comparator(array[left], array[i]):
             largest = left
         else:
             largest = i
 
-        if right < array_size and self.get_value(array[right]) < self.get_value(array[largest]):
+        if right < array_size and self.comparator(array[right], array[largest]):
             largest = right
 
         if largest != i:
@@ -40,11 +47,11 @@ class MinHeap:
         array = self.heap
         parent = self.get_parent(i)
 
-        if self.get_value(array[parent]) > self.get_value(array[i]) and parent >= 0:
+        if not self.comparator(array[parent], array[i]) and parent >= 0:
             self.exchange(self.heap, parent, i)
             self.traverse_upwards(parent)
 
-    def extract_min(self):
+    def extract_root(self):
         min = self.heap[0]
         self.heap[0] = self.heap[-1]
         self.heap.pop()
@@ -85,12 +92,7 @@ class MinHeap:
         return floor((i - 1) / 2)
 
 
-# if __name__ == "__main__":
-#     # test array goes here
-#     array = [random.randint(1, 1000) for _ in range(100000)]
-#     heap = Heap(array)
-#     tic = time.time()
-#     heap.insert(1000)
-#     toc = time.time()
-#     print(array)
-#     print(f"time elapses", toc - tic, 's')
+class MaxHeap(MinHeap):
+
+    def comparator(self, x, y):
+        return self.get_value(x) > self.get_value(y)
