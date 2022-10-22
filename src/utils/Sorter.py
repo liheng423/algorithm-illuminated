@@ -7,7 +7,7 @@ def swap(a, j, i):
     a[i] = temp
 
 
-def search_median_index(array, median, l, r):
+def search_median_index(array, median, l, r, get_identifier):
     # only in the number of odds
 
     pivot = random.randint(l, r)
@@ -16,7 +16,7 @@ def search_median_index(array, median, l, r):
     i = l + 1
 
     for j in range(l + 1, r + 1):
-        if array[j] <= array[l]:
+        if get_identifier(array[j]) <= get_identifier(array[l]):
             swap(array, i, j)
             i = i + 1
 
@@ -26,10 +26,10 @@ def search_median_index(array, median, l, r):
         return i - 1
     elif i - 1 > median:
         # left
-        return search_median_index(array, median, l, i - 2)
+        return search_median_index(array, median, l, i - 2, get_identifier)
     else:
         # right
-        return search_median_index(array, median, i, r)
+        return search_median_index(array, median, i, r, get_identifier)
 
 
 class QuickSort:
@@ -62,7 +62,7 @@ class QuickSort:
 
         median = int((l + r) / 2)
 
-        return search_median_index(self.array, median, l, r)
+        return search_median_index(self.array, median, l, r, self.get_identifier)
 
     def _partition(self, l, r):
         # this is the pivot

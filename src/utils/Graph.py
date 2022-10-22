@@ -1,4 +1,9 @@
+from contextlib import suppress
+from inspect import isclass
 import random
+from typing import Set
+
+from pyparsing import Suppress
 
 
 class Vertice:
@@ -36,6 +41,9 @@ class WeightedEdge:
     def random_generator(self, vertex, weight_min, weight_max):
         self.vertex_set = set(random.sample(vertex, 2))
         self.weight = random.randint(weight_min, weight_max)
+
+    def __str__(self):
+        return "vertex_set: {0}, weight: {1}".format(self.vertex_set, self.weight)
 
 
 class Edge:
@@ -110,3 +118,11 @@ def random_graph_generator(num_edges, num_vertex, weight_min, weight_max, vertic
 
     graph = UndirectedGraph(edges, vertex)
     return graph
+
+
+def prettify_edges_output(vertex, edges_output):
+
+    # create a hashmap to mirror every vertice object to int type
+    vertex_dict = {key: value for value, key in enumerate(vertex)}
+
+    return [((vertex_dict[list(edge.vertex_set)[0]], vertex_dict[list(edge.vertex_set)[1]]), edge.weight) for edge in edges_output]

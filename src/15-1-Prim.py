@@ -91,10 +91,6 @@ if __name__ == "__main__":
     num_vertex = 20
     num_edge = 19*10
 
-    # prepare the data
-    # edges = [((0, 1), 20), ((2, 3), 10), ((0, 2), 5),
-    #          ((1, 3), 20), ((0, 3), 15), ((1, 2), 3)]
-
     graph = Graph.random_graph_generator(
         num_edge, num_vertex, weight_min, weight_max, GroupVertice, Graph.WeightedEdge)
 
@@ -105,6 +101,7 @@ if __name__ == "__main__":
         return prim.run()
 
     print(main_loop())
+
     # prettify the result and show
 
     # vertex_dict = dict([(group_vertice, vertice)

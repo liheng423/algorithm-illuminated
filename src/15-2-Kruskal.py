@@ -1,5 +1,6 @@
 from threading import get_ident
 from numpy import get_include
+from moduletest.Tester import timer
 from utils.UnionFind import UnionFind
 import utils.Graph as Graph
 from utils.Sorter import QuickSort
@@ -38,6 +39,14 @@ if __name__ == "__main__":
     weight_max = 1000
     weight_min = 0
     num_vertex = 100
-    num_edge = 100
+    num_edge = 50*99
 
-    vertex = Graph.Vertice
+    graph = Graph.random_graph_generator(
+        num_edge, num_vertex, weight_min, weight_max)
+
+    @timer
+    def main_loop():
+        kruskal = Kruskal(graph)
+        return kruskal.run()
+
+    print(Graph.prettify_edges_output(graph.vertex, main_loop()))
