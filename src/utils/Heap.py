@@ -5,8 +5,8 @@ import random
 
 class MinHeap:
 
-    def __init__(self, array, get_value=lambda x: x):
-        self.get_value = get_value
+    def __init__(self, array, get_identifier=lambda x: x):
+        self.get_identifier = get_identifier
         self.heap = array
         self.array_size = len(self.heap) - 1
 
@@ -19,7 +19,7 @@ class MinHeap:
             This comparator are used to compare two candidates and initialized as minHeap by default.
             If the MaxHeap is needed, then reverse the comparator in this function.
         """
-        return self.get_value(x) < self.get_value(y)
+        return self.get_identifier(x) < self.get_identifier(y)
 
     def traverse_downwards(self, i):
         array = self.heap
@@ -95,4 +95,4 @@ class MinHeap:
 class MaxHeap(MinHeap):
 
     def comparator(self, x, y):
-        return self.get_value(x) > self.get_value(y)
+        return self.get_identifier(x) > self.get_identifier(y)

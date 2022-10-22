@@ -5,9 +5,9 @@ import math
 from moduletest.Tester import timer
 
 
-class GroupVertice:
+class GroupVertice(Graph.Vertice):
 
-    def __init__(self, key, winner):
+    def __init__(self, key=None, winner=None):
         self.key = key
         self.winner = winner
 
@@ -86,59 +86,26 @@ class Prim:
 
 if __name__ == "__main__":
     # config
-    weight_max = 1000
+    weight_max = 100
     weight_min = 0
-    num_vertex = 500
-    num_edge = 500*10
-
-    def random_edges_generator(k, num_vertex, weight_min, weight_max):
-        """
-
-        Args:
-            k (int): the number of edges in the desired graph
-            num_vertex (int): the number of vertex in the desired graph
-            weight_min (int): 
-            weight_max (int): 
-
-        Returns:
-            list: generated edges
-        """
-
-        assert k <= num_vertex * (num_vertex - 1) / 2
-
-        # initialize the edges list
-        edges = []
-
-        for _ in range(k):
-
-            while True:
-                append_edge = (((random.randint(0, num_vertex - 1), random.randint(0, num_vertex - 1))),
-                               random.randint(weight_min, weight_max))
-                if append_edge[0][0] != append_edge[0][1] and set(append_edge[0]) not in [set(edge[0]) for edge in edges]:
-                    edges.append(append_edge)
-                    break
-
-        return edges
+    num_vertex = 20
+    num_edge = 10*19
 
     # prepare the data
-    group_vertex = [GroupVertice(None, None) for _ in range(num_vertex)]
     # edges = [((0, 1), 20), ((2, 3), 10), ((0, 2), 5),
     #          ((1, 3), 20), ((0, 3), 15), ((1, 2), 3)]
-    edges = random_edges_generator(num_edge, num_vertex, 0, 100)
 
-    weight_edges = [Graph.WeightedEdge(
-        {group_vertex[edge_set[0]], group_vertex[edge_set[1]]}, edge_weight)
-        for edge_set, edge_weight in edges]
-
-    split_graph = Graph.Graph(weight_edges, group_vertex)
+    graph = Graph.random_graph_generator(
+        num_edge, num_vertex, weight_min, weight_max, GroupVertice, Graph.WeightedEdge)
 
     # main loop of algorithm
     @timer
     def main_loop():
-        prim = Prim(split_graph)
+        prim = Prim(graph)
+        print(prim._explored_vertex)
         return prim.run()
 
-    main_loop()
+    print(main_loop())
 
     # prettify the result and show
 

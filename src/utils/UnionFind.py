@@ -66,11 +66,3 @@ class UnionFind:
 
     def __str__(self):
         return str([item.__str__() for item in self.wrapper_dict.values()])
-
-
-uf = UnionFind([1, 2, 3, 4, 5, 6, 7])
-uf.union(3, 4)
-uf.union(5, 4)
-uf.union(7, 6)
-uf.union(6, 3)
-print(uf)
