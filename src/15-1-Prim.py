@@ -42,7 +42,7 @@ class Prim:
 
         self._heap = Heap.MinHeap(self._unexplored_vertex, lambda x: x.key)
 
-        assert self._heap is not []
+        assert self._heap.heap is not []
 
     def run(self):
 
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     weight_max = 100
     weight_min = 0
     num_vertex = 20
-    num_edge = 10*19
+    num_edge = 19*10
 
     # prepare the data
     # edges = [((0, 1), 20), ((2, 3), 10), ((0, 2), 5),
@@ -102,11 +102,9 @@ if __name__ == "__main__":
     @timer
     def main_loop():
         prim = Prim(graph)
-        print(prim._explored_vertex)
         return prim.run()
 
     print(main_loop())
-
     # prettify the result and show
 
     # vertex_dict = dict([(group_vertice, vertice)
