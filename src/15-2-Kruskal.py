@@ -1,7 +1,7 @@
 from threading import get_ident
 from numpy import get_include
 from moduletest.Tester import timer
-from utils.UnionFind import UnionFind
+from utils.UnionFind import UnionFindRank
 import utils.Graph as Graph
 from utils.Sorter import QuickSort
 
@@ -16,7 +16,7 @@ class Kruskal:
     def __init__(self, graph):
         self._min_span_tree = []
         self._graph = graph
-        self._union_find = UnionFind(graph.vertex)
+        self._union_find = UnionFindRank(graph.vertex)
         quick_sort = QuickSort(graph.edges, get_identifier=lambda x: x.weight)
         self.sorted_edges = quick_sort.array
 

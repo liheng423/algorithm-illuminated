@@ -66,3 +66,40 @@ class UnionFind:
 
     def __str__(self):
         return str([item.__str__() for item in self.wrapper_dict.values()])
+
+
+class UnionFindRank(UnionFind):
+
+    """
+        Here size is the rank.
+    """
+
+    def union(self, cand1, cand2):
+        root1 = self._find_wrapper(cand1)
+        root2 = self._find_wrapper(cand2)
+
+        if root1 == root2:
+            return
+
+        if root1.size > root2.size:
+            root2.parent = root1.item
+        elif root1.size < root2.size:
+            root1.parent = root2.item
+        elif root1.size == root2.size:
+            root2.parent = root1.item
+            root2.size += 1
+
+
+class UnionFindPathComp(UnionFindRank):
+
+    def _find_wrapper(self, target):
+        target_wrapper = self.wrapper_dict[target]
+
+        if target_wrapper.item != target_wrapper.parent:
+
+            # recursive call to attribute all the nodes' parents on the path to the root.
+            target_wrapper.parent = self._find_wrapper(target_wrapper.parent)
+            return target_wrapper
+
+        # base case
+        return target_wrapper
