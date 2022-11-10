@@ -78,6 +78,16 @@ class UndirectedGraph:
 
         return None
 
+    # TODO: This method can be optimized
+    def get_subgraph(self, vertex_exclude):
+
+        vertex = list(
+            filter(lambda x: x not in vertex_exclude, self.vertex))
+        edges = list(filter(lambda x: not (
+            list(x.vertex_set)[0] in vertex_exclude) and not (list(x.vertex_set)[1] in vertex_exclude), self.edges))
+
+        return self.__class__(edges, vertex)
+
     def __str__(self):
         return "edges: {0}, \n vertex: {1}".format(self.edges, self.vertex)
 
