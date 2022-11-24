@@ -1,6 +1,3 @@
-import Heap
-
-
 class Node:
 
     def __init__(self, value, parent, children):
@@ -14,8 +11,8 @@ class Node:
 
 class Tree:
 
-    def __init__(self, values):
-        self.tree = [Node(value, None, (None, None)) for value in values]
+    def __init__(self, nodes):
+        self.tree = nodes
 
     def add_upper_node(self, node):
         self.tree.append(node)
@@ -26,3 +23,8 @@ class Tree:
 
     def __str__(self):
         return [node.__str__() for node in self.tree]
+
+
+class RedBlackTree:
+    # TODO
+    pass
