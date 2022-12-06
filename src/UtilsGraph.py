@@ -32,10 +32,19 @@ class WeightedArc(Arc):
         pass
 
 
-class WeightedEdge:
+class Edge:
+
+    def __init__(self, vertex_set):
+        self.vertex_set = vertex_set
+
+    def random_generator(self):
+        pass
+
+
+class WeightedEdge(Edge):
 
     def __init__(self, vertex_set=None, weight=None):
-        self.vertex_set = vertex_set
+        super().__init__(vertex_set)
         self.weight = weight
 
     def random_generator(self, vertex, weight_min, weight_max):
@@ -46,16 +55,7 @@ class WeightedEdge:
         return "vertex_set: {0}, weight: {1}".format(self.vertex_set, self.weight)
 
 
-class Edge:
-
-    def __init__(self, vertex_set):
-        self.vertex_set = vertex_set
-
-    def random_generator(self):
-        pass
-
-
-class UndirectedGraph:
+class Graph:
 
     def __init__(self, edges, vertex):
         """
@@ -65,6 +65,33 @@ class UndirectedGraph:
         """
         self.edges = edges
         self.vertex = vertex
+
+
+class DirectedGraph(Graph):
+
+    def get_edge_by_vertex(self, from_vertice, to_vertice):
+
+        for edge in self.edges:
+            if (edge.from_vertice == from_vertice and edge.to_vertice == to_vertice):
+                return edge
+
+        return None
+
+    def add_arc(self, arc: Arc):
+
+        if arc.from_vertice not in self.vertex:
+            self.vertex.append(arc.from_vertice)
+
+        if arc.to_vertice not in self.vertex:
+            self.vertex.append(arc.to_vertice)
+
+        if arc not in self.edges:
+            self.edges.append(arc)
+            return True
+        return False
+
+
+class UndirectedGraph(Graph):
 
     def get_edge_by_vertex(self, vertice_1, vertice_2):
         """
@@ -88,8 +115,30 @@ class UndirectedGraph:
 
         return self.__class__(edges, vertex)
 
+    def add_edge(self, edge: Edge):
+
+        first_vertice = list(edge.vertex_set)[0]
+        second_vertice = list(edge.vertex_set)[1]
+
+        if first_vertice not in self.vertex:
+            self.vertex.append(first_vertice)
+
+        if second_vertice not in self.vertex:
+            self.vertex.append(second_vertice)
+
+        if edge not in self.edges:
+            self.edges.append(edge)
+            return True
+        return False
+
+    def add_vertice(self, vertice):
+        if vertice not in self.vertex:
+            self.vertex.append(vertice)
+            return True
+        return False
+
     def __str__(self):
-        return "edges: {0}, \n vertex: {1}".format(self.edges, self.vertex)
+        return "edges: {0}, \n vertex: {1}".format([edge.__str__() for edge in self.edges], self.vertex)
 
 
 def random_graph_generator(num_edges, num_vertex, weight_min, weight_max, vertice_type=Vertice, edge_type=WeightedEdge):

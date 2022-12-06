@@ -1,9 +1,9 @@
 from threading import get_ident
 from numpy import get_include
 from moduletest.Tester import timer
-from utils.UnionFind import UnionFindRank
-import utils.Graph as Graph
-from utils.Sorter import QuickSort
+from UtilsUnionFind import UnionFindRank
+import UtilsGraph as Graph
+from UtilsSorter import QuickSort
 
 """
     Union-Find-Based Kruskal

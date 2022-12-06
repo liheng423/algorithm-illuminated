@@ -1,6 +1,6 @@
-import utils.Graph as Graph
+import UtilsGraph as Graph
 import random
-import utils.Heap as Heap
+import UtilsHeap as Heap
 import math
 from moduletest.Tester import timer
 

@@ -1,5 +1,5 @@
 
-from utils.Math import argmin as argmin
+from UtilsMath import argmin as argmin
 
 
 def NW(string_x, string_y, params):

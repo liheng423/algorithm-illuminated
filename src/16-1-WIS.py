@@ -1,6 +1,6 @@
-from utils.Graph import UndirectedGraph as Graph
-from utils.Graph import Edge as Edge
-from utils.Math import argmax as argmax
+from UtilsGraph import UndirectedGraph as Graph
+from UtilsGraph import Edge as Edge
+from UtilsMath import argmax as argmax
 from moduletest.Tester import timer
 
 

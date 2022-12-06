@@ -1,4 +1,4 @@
-import utils.Heap as Heap
+import UtilsHeap as Heap
 import time
 import random
 
