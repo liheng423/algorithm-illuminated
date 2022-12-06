@@ -39,9 +39,3 @@ def bellman_ford(graph, sink, get_weight=lambda x: x.weight):
 
     # failed to stabilize in n iterations
     return "negative cycle detected!"
-
-
-if __name__ == "__main__":
-    graph = Data.directed_graph_data_loader(
-        "/Users/blow/PycharmProjects/Algorithms/testcases/problem18-1.csv")
-    print(bellman_ford(graph, 1))
