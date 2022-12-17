@@ -1,7 +1,7 @@
 from contextlib import suppress
 from inspect import isclass
 import random
-from typing import Set
+from typing import Set, Optional
 
 from pyparsing import Suppress
 
@@ -69,7 +69,7 @@ class Graph:
 
 class DirectedGraph(Graph):
 
-    def get_edge_by_vertex(self, from_vertice, to_vertice):
+    def get_edge_by_vertex(self, from_vertice, to_vertice) -> Optional[WeightedArc]:
 
         for edge in self.edges:
             if (edge.from_vertice == from_vertice and edge.to_vertice == to_vertice):
@@ -77,7 +77,7 @@ class DirectedGraph(Graph):
 
         return None
 
-    def add_arc(self, arc: Arc):
+    def add_arc(self, arc: WeightedArc):
 
         if arc.from_vertice not in self.vertex:
             self.vertex.append(arc.from_vertice)
