@@ -5,7 +5,7 @@ from UtilsGraph import WeightedEdge as Edge
 from UtilsGraph import WeightedArc as Arc
 
 
-def undirected_graph_data_loader(csv_filepath: str, skip=0):
+def undirected_graph_data_loader(csv_filepath: str, skip: int = 0):
     graph = Graph([], [])
     with open(csv_filepath) as file:
         reader = csv.reader(file, delimiter=" ")
@@ -20,7 +20,7 @@ def undirected_graph_data_loader(csv_filepath: str, skip=0):
     return graph
 
 
-def directed_graph_data_loader(csv_filepath: str, skip=0):
+def directed_graph_data_loader(csv_filepath: str, skip: int = 0) -> DGraph:
     graph = DGraph([], [])
     with open(csv_filepath) as file:
         reader = csv.reader(file, delimiter=" ")
