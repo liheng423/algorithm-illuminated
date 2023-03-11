@@ -1,14 +1,17 @@
 from math import floor
+from typing import List, TypeVar
 import time
 import random
+
+T = TypeVar('T')
 
 
 class MinHeap:
 
-    def __init__(self, array, get_identifier=lambda x: x):
+    def __init__(self, array: List[T], get_identifier=lambda x: x):
         self.get_identifier = get_identifier
-        self.heap = array
-        self.array_size = len(self.heap) - 1
+        self.heap: List[T] = array
+        self.array_size: int = len(self.heap) - 1
 
         # using siftdown strategy
         for i in range(floor(self.array_size / 2), -1, -1):
@@ -70,6 +73,10 @@ class MinHeap:
             return
 
         self.traverse_downwards(i)
+
+    def get_root(self) -> T:
+
+        return self.heap[0]  # type: ignore
 
     @staticmethod
     def exchange(array, i, j):
